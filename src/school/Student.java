@@ -88,11 +88,23 @@ public class Student {
     private static void getData(ArrayList<Student> students) {
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.println("options:\n4: get students name, id, gpa, credits\n3: get student name, id\n2: get student name, gpa\n1: get student name, credits\n0: back");
+            System.out.println("options:\n5: get students level\n4: get students name, id, gpa, credits\n3: get student name, id\n2: get student name, gpa\n1: get student name, credits\n0: back");
 
             int choice = in.nextInt();
 
-            if (choice == 4) {
+            if (choice == 5){
+                Student obj = null;
+                for (Student student : students) {
+                    String name = student.getName();
+                    System.out.println(name + "\n1:yes\n0:no");
+                    int IO = in.nextInt();
+                    if (IO == 1) {
+                        obj = student;
+                        break;
+                    }
+                }
+                System.out.println(obj.getGradeLevel());
+            } else if (choice == 4) {
                 for (Student student : students) {
                     String name = student.getName();
                     int id = student.getStudentID();
@@ -144,11 +156,17 @@ public class Student {
                 }
             }
             while (true) {
-                System.out.println("options:\n3: set name\n2: set gpa\n1: set credits\n0: back");
+                System.out.println("options:\n4: add grade\n3: set name\n2: set gpa\n1: set credits\n0: back");
 
                 int choice = in.nextInt();
 
-                if (choice == 3) {
+                if (choice == 4){
+                    System.out.println("number of credits earned:");
+                    int cred = in.nextInt();
+                    System.out.println("Grade (from 0.0 to 4.0)");
+                    double gp = in.nextDouble();
+                    obj.addGrade(cred, gp);
+                } else if (choice == 3) {
                     in.nextLine();
                     System.out.println("set Name to: ");
                     String name = in.nextLine();
@@ -175,5 +193,66 @@ public class Student {
                 }
             }
         }
+    }
+    public void addGrade(int courseCredits, double grade) {
+        // Update the appropriate fields: numberOfCredits, gpa
+        double gpaSum = this.GPA * this.credits;
+        gpaSum = gpaSum + (grade * courseCredits);
+        this.credits = this.credits + courseCredits;
+        this.GPA = gpaSum / this.credits;
+    }
+
+    public String getGradeLevel() {
+        // Determine the grade level of the student based on numberOfCredits
+        if (this.credits < 30){
+            return "freshman";
+        }else if(this.credits < 60){
+            return "sophomore";
+        }else if(this.credits < 90){
+            return "junior";
+        }else{
+            return "senior";
+        }
+
+    }
+    @Override
+    public String toString(){
+        String id = String.valueOf(this.studentID);
+        String cr = String.valueOf(this.credits);
+        String gp = String.valueOf(this.GPA);
+
+        return "\nname: " + this.name +
+                "\nid: " + id +
+                "\ntotal credits: " + cr +
+                "\nGrade point Average: " + gp +
+                "\n";
+    }
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null) {
+            return false;
+        }
+
+        if (o.getClass() != getClass()) {
+            return false;
+        }
+
+        Student tS = (Student) o;
+        return (tS.getStudentID() == getStudentID() && tS.getName().equals(getName()) && tS.getcredits() == getcredits() && tS.getGPA() == getGPA());
+    }
+    @Override
+    public int hashCode() {
+        int hash = 67;
+        hash = hash * this.studentID;
+        hash = (int) (hash * this.GPA);
+        hash = hash + this.name.length();
+        hash = (int) (hash * 1000 * (this.credits * this.GPA - this.name.length() + 13));
+        hash = (hash * (hash + hash)) / (this.credits + this.studentID);
+        return hash;
     }
 }

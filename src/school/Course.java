@@ -9,17 +9,20 @@ public class Course {
     private static String key = "myKEY";
     private String teacher;
     private String course;
+    private final int ran;
     private HashMap<Integer, Student> students = new HashMap<>();
 
     public Course(String theTeacher, String theClass, HashMap<Integer, Student> roster){
         this.teacher = theTeacher;
         this.course = theClass;
         this.students = roster;
+        this.ran = (int) (Math.random() * 352 + 113 + 45 - 113 - 12);
     }
 
     public Course(String theTeacher, String theClass){
         this.teacher = theTeacher;
         this.course = theClass;
+        this.ran = (int) (Math.random() * 352 + 113 + 45 - 113 - 12);
     }
 
 
@@ -163,5 +166,40 @@ public class Course {
                 break;
             }
         }
+    }
+
+    @Override
+    public String toString(){
+        return "\nCourse name: " + this.course +
+                "\nTeacher: " + this.teacher +
+                "\n";
+    }
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+
+        if (o == null) {
+            return false;
+        }
+
+        if (o.getClass() != getClass()) {
+            return false;
+        }
+
+        Course core = (Course) o;
+        return (core.getTeacher().equals(getTeacher()) && core.getCourse().equals(getCourse()));
+    }
+    @Override
+    public int hashCode() {
+        int hash = 67;
+        hash = hash * this.teacher.length();
+        hash = hash * this.course.length() * 7;
+        hash = hash * 1000 + 13 * ran;
+        hash = ran + (ran + hash * (hash + hash)) / (this.teacher.length() + this.course.length());
+        hash = (int) Math.pow(hash, ran);
+        return hash;
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class School {
-    private static Student john = new Student("john");
+    private static Student john = new Student("john", 1, 30, 2.9);
     private static Student mary = new Student("mary");
     private static Student kaitlyn = new Student("kaitlyn");
     private static Student ray = new Student("ray");
@@ -26,6 +26,16 @@ public class School {
         courses.add(history);
 
         Scanner in = new Scanner(System.in);
+        /* - - - TEST PRINTS - - -
+        System.out.println(math.toString());
+        System.out.println(math.equals(math));
+        System.out.println(math.equals(history));
+        System.out.println(math.equals(ray));
+        System.out.println(ray.equals(ray));
+        System.out.println(ray.equals(mary));
+        for (Student obj : students){
+           System.out.println(obj.hashCode() + "\n");
+        }*/
         while (true) {
             System.out.println("options:\n2: get student names\n1: login to get more access\n0: quit");
 
