@@ -35,6 +35,7 @@ public class School {
         System.out.println(ray.equals(mary));
         for (Student obj : students){
            System.out.println(obj.hashCode() + "\n");
+           System.out.println(obj.toString() + "\n");
         }*/
         while (true) {
             System.out.println("options:\n2: get student names\n1: login to get more access\n0: quit");

@@ -225,7 +225,7 @@ public class Student {
                 "\nid: " + id +
                 "\ntotal credits: " + cr +
                 "\nGrade point Average: " + gp +
-                "\n";
+                "\n" + super.toString() + "\n";
     }
     @Override
     public boolean equals(Object o) {
